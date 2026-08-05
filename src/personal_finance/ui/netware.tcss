@@ -1,0 +1,256 @@
+/* Structural color values below are kept in sync by hand with
+   personal_finance.ui.palette (a static .tcss file, loaded via CSS_PATH,
+   cannot import Python constants -- see that module's docstring). */
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+Screen {
+    background: #000080;
+    color: #ffffff;
+}
+
+/* ── Scrollbars ──────────────────────────────────────────────────────────── */
+/* Unstyled by default, Widget's scrollbar-* properties fall back to Textual's
+   builtin theme variables, which resolve to a green derived from the theme's
+   "primary" color -- the only green anywhere in this app, and unintentional.
+   Pin them to the existing navy/light-blue accent instead. */
+* {
+    scrollbar-background: #000066;
+    scrollbar-background-hover: #000066;
+    scrollbar-background-active: #000066;
+    scrollbar-corner-color: #000066;
+    scrollbar-color: #aaaaff;
+    scrollbar-color-hover: #aaaaff;
+    scrollbar-color-active: #ffffff;
+}
+
+/* ── Panel / container chrome ────────────────────────────────────────────── */
+.panel {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    border: solid #ffffff;
+    color: #ffffff;
+}
+
+.panel--title {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    color: #aaaaff;
+    text-style: bold;
+    padding: 0 1;
+}
+
+/* ── Labels & read-only values ───────────────────────────────────────────── */
+Label {
+    color: #aaaaaa;
+}
+
+.value--readonly {
+    color: #ffffff;
+}
+
+/* ── Inputs ──────────────────────────────────────────────────────────────── */
+Input, MaskedInput {
+    background: #000080;
+    color: #ffffff;
+    border: solid #6666cc; /* palette.BORDER_STRUCTURAL */
+}
+
+Input:focus, MaskedInput:focus {
+    background: #0055cc;
+    border: solid #aaaaff;
+}
+
+Input.-invalid, MaskedInput.-invalid {
+    background: #aa0000;
+    border: solid #ff5555;
+    color: #ffffff;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+Button {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    color: #ffffff;
+    border: solid #aaaaff;
+    min-width: 10;
+}
+
+Button:focus {
+    background: #cc0000;
+    border: solid #ffffff;
+    color: #ffffff;
+    text-style: bold;
+}
+
+Button:hover {
+    background: #cc0000;
+    color: #ffffff;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+Footer {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    color: #aaaaff;
+}
+
+/* ── Loading indicator ───────────────────────────────────────────────────── */
+LoadingIndicator {
+    color: #aaaaff;
+    background: #1a1ab0; /* palette.PANEL_FILL */
+}
+
+/* ── Select / SelectOverlay ──────────────────────────────────────────────── */
+Select {
+    background: #000080;
+    color: #ffffff;
+}
+
+Select > SelectCurrent {
+    background: #000080;
+    color: #ffffff;
+    border: solid #6666cc; /* palette.BORDER_STRUCTURAL */
+    padding: 0 1;
+}
+
+Select:focus > SelectCurrent {
+    background: #0055cc;
+    border: solid #aaaaff;
+    padding: 0 1;
+}
+
+SelectOverlay {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    border: solid #aaaaff;
+    min-width: 40;
+}
+
+SelectOverlay > OptionList {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    color: #ffffff;
+}
+
+OptionList > .option-list--option-highlighted {
+    background: #0055cc;
+    color: #ffffff;
+    text-style: bold;
+}
+
+/* ── Dialogs ─────────────────────────────────────────────────────────────── */
+ModalScreen {
+    align: center middle;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.dialog {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    border: solid #ffffff;
+    width: 50;
+    height: auto;
+    padding: 1 2;
+}
+
+.dialog--title {
+    color: #aaaaff;
+    text-style: bold;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1;
+}
+
+.dialog--question {
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1;
+}
+
+.dialog--buttons {
+    align: right middle;
+    width: 100%;
+    height: auto;
+    margin-top: 1;
+}
+
+.dialog--buttons Button {
+    margin-left: 1;
+}
+
+/* ── AccountCreationDialog overrides ─────────────────────────────────────── */
+AccountCreationDialog .dialog {
+    width: 90;
+}
+
+/* ── AddHoldingDialog overrides ──────────────────────────────────────── */
+AddHoldingDialog .dialog {
+    width: 90;
+    height: 85vh;
+}
+
+/* ── HoldingAllocationDialog overrides ───────────────────────────────── */
+HoldingAllocationDialog .dialog {
+    width: 60;
+    height: 85vh;
+}
+
+/* ── CreateGoalDialog / GoalValueDialog overrides ────────────────────────── */
+CreateGoalDialog .dialog {
+    width: 62;
+}
+
+/* ── SelectAccountsDialog overrides ──────────────────────────────────────── */
+SelectAccountsDialog .dialog {
+    width: 70;
+    max-height: 85vh;
+}
+
+SelectAccountsDialog #sad-container {
+    height: auto;
+    max-height: 18;
+}
+
+SelectAccountsDialog ListView {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    border: none;
+    height: auto;
+}
+
+SelectAccountsDialog ListItem {
+    background: #1a1ab0; /* palette.PANEL_FILL */
+    padding: 0;
+}
+
+SelectAccountsDialog ListItem.-highlight {
+    background: #0055cc;
+}
+
+SelectAccountsDialog ListItem.-highlight .ali-checkbox,
+SelectAccountsDialog ListItem.-highlight .ali-name,
+SelectAccountsDialog ListItem.-highlight .ali-balance {
+    color: #ffffff;
+}
+
+SelectAccountsDialog ListItem.-highlight.blocked-item .ali-checkbox,
+SelectAccountsDialog ListItem.-highlight.blocked-item .ali-name,
+SelectAccountsDialog ListItem.-highlight.blocked-item .ali-balance {
+    color: #aaaaaa;
+}
+
+SelectAccountsDialog ListItem.blocked-item:disabled {
+    opacity: 1;
+}
+
+/* ── BankAccountAllocationDialog overrides ───────────────────────────────── */
+BankAccountAllocationDialog .dialog {
+    width: 56;
+}
+
+/* ── ExpenseDialog overrides ─────────────────────────────────────────────── */
+ExpenseDialog .dialog {
+    width: 56;
+}
+
+BankAccountAllocationDialog ToggleRow {
+    width: 100%;
+    margin-top: 1;
+}
+
+BankAccountAllocationDialog ToggleRow:focus {
+    background: #0055cc;
+}

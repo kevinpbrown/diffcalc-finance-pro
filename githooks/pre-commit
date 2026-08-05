@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Blocks commits that violate the technical charter (format, lint, types, tests).
+# Installed via: git config core.hooksPath githooks
+#
+# This is a tracked file (unlike .git/hooks/) so it travels with the repo —
+# every clone gets it after running the one-time `git config` command in
+# AGENTS.md's Development Environment section.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+if ! ./scripts/check.sh; then
+    echo
+    echo "Commit blocked: charter checks failed (see specs/canonical/technical-charter.md)."
+    echo "Fix the issues above, or run 'git commit --no-verify' to bypass (not recommended)."
+    exit 1
+fi

@@ -1,0 +1,4 @@
+**/*.clineignore
+**/*.agentignore
+**/*.ignore
+chat-logs

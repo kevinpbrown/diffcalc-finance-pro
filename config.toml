@@ -1,0 +1,19 @@
+[settings]
+amount_left_to_invest_cushion = 2000.00
+same_day_quote_ttl_seconds = 300
+
+[persons]
+names = ["Mom", "Dad"]
+
+[asset_classes]
+# "Cash" is a built-in asset class seeded from code with a reserved primary key
+# (BuiltInAssetClassId.CASH). It must NOT be listed here.
+names = [
+    "Fixed Income",
+    "US Equity",
+    "Canadian Equity",
+    "European Equity",
+    "APAC Equity",
+    "Emerging Equity",
+    "Other",
+]

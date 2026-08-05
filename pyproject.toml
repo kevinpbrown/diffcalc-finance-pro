@@ -1,0 +1,104 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "diffcalc-finance-pro"
+version = "0.1.0"
+description = "Personal Finance Textual UI"
+requires-python = ">=3.12"
+dependencies = [
+    "textual>=0.89.0",
+    "sqlalchemy>=2.0",
+    "pydantic>=2.0",
+    "structlog>=24.0",
+    "platformdirs>=4.0",
+    "tomli>=2.0; python_version < '3.11'",
+    "yfinance>=0.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "mypy>=1.10",
+    "ruff>=0.4",
+    "sqlalchemy[mypy]>=2.0",
+]
+
+[project.scripts]
+personal-finance = "personal_finance.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/personal_finance"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "--cov=personal_finance --cov-report=term-missing --cov-fail-under=80"
+markers = [
+    "external: integration tests that make real network calls (deselect with '-m not external')",
+]
+
+[tool.coverage.run]
+source = ["src/personal_finance"]
+omit = [
+    "src/personal_finance/ui/*",
+    "src/personal_finance/integrations/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "@overload",
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+mypy_path = "src"
+plugins = ["sqlalchemy.ext.mypy.plugin", "pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = "textual.*"
+ignore_missing_imports = true
+
+
+[tool.ruff]
+src = ["src"]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ANN", # flake8-annotations
+    "D",   # pydocstyle
+]
+ignore = [
+    "D100", # Missing docstring in public module (handled by README.md)
+    "D104", # Missing docstring in public package
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["D"]  # Test method names document intent; docstrings are redundant.
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["personal_finance"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
